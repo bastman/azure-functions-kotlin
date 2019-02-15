@@ -68,16 +68,16 @@ tasks.create<Copy>("copyOpenApiDef") {
     copy {
         from("src/main/resources")
         into(azureOutputDir)
-        //include("swagger.*")
-        include("*")
+        include("swagger.*")
     }
 }
-
+/*
 tasks.create<Delete>("cleanAzureFunction") {
     println(this.name)
     group = "azure"
     delete = setOf (azureOutputDir)
 }
+*/
 val packageAzureFunction = tasks.create<Copy>("packageAzureFunction") {
     println(this.name)
     println("$rootDir -> $azureOutputDir")
@@ -88,8 +88,8 @@ val packageAzureFunction = tasks.create<Copy>("packageAzureFunction") {
         include("host.json", "local.settings.json")
     }
 }
-packageAzureFunction.dependsOn("cleanAzureFunction", "build", "copyJar", "copyFunctionDefs", "copyOpenApiDef")
-
+//packageAzureFunction.dependsOn("cleanAzureFunction", "build", "copyJar", "copyFunctionDefs", "copyOpenApiDef")
+packageAzureFunction.dependsOn("build", "copyJar", "copyFunctionDefs", "copyOpenApiDef")
 
 
 defaultTasks("run")
