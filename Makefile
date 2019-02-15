@@ -19,6 +19,9 @@ gradle-wrapper:
 	./gradlew wrapper --gradle-version=$(GRADLE_VERSION)
 	./gradlew --version
 
+## fn.app.start:   : start app
+fn.app.start: guard-APP_NAME
+	cd $(APP_NAME) && func host start --build
 
 ## fn.create-app.nodejs: create app
 fn.create-app.nodejs: guard-APP_NAME
@@ -31,6 +34,9 @@ fn.create-function.nodejs: guard-APP_NAME guard-FUNCTION_NAME
 	func init $(APP_NAME) --worker-runtime node
 	cd $(APP_NAME) && func new --name $(FUNCTION_NAME) --template "HttpTrigger"
 
-## fn.app.start:   : start app
-fn.app.start: guard-APP_NAME
-	cd $(APP_NAME) && func host start --build
+## fn.create-app.java: create app
+fn.create-app.java: guard-APP_NAME
+	func init $(APP_NAME) --worker-runtime java
+	cd $(APP_NAME) && rm -rf .vscode
+
+
