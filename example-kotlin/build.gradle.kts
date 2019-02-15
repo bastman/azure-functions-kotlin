@@ -32,40 +32,9 @@ tasks.withType<KotlinCompile> {
 }
 
 val azureOutputDir = "$buildDir/azure-functions/"
+println("=== azureOutputDir: $azureOutputDir")
 
-tasks.create<Delete>("cleanAzureFunction") {
-    println(this.name)
-    group = "azure"
-    delete = setOf (azureOutputDir)
-}
-tasks.create<Copy>("copyOpenApiDef") {
-    println(this.name)
-    group = "azure"
-    copy {
-        from("src/main/resources")
-        into(azureOutputDir)
-        include("swagger.*")
-    }
-}
-tasks.create<Copy>("copyFunctionDefs") {
-    println(this.name)
-    group = "azure"
-    copy {
-        from("src/main/resources/functions")
-        into(azureOutputDir)
-        include("**/function.json")
-    }
-}
-val packageAzureFunction = tasks.create<Copy>("packageAzureFunction") {
-    println(this.name)
-    group = "azure"
-    copy {
-        from(rootDir)
-        into(azureOutputDir)
-        include("host.json", "local.settings.json")
-    }
-}
-packageAzureFunction.dependsOn("cleanAzureFunction", "build", "copyJar", "copyFunctionDefs", "copyOpenApiDef")
+
 
 val libsDir:File = property("libsDir") as File
 val copyJar = tasks.create<Copy>("copyJar") {
@@ -83,5 +52,44 @@ val copyJar = tasks.create<Copy>("copyJar") {
 }
 
 copyJar.dependsOn("build")
+
+tasks.create<Copy>("copyFunctionDefs") {
+    println(this.name)
+    group = "azure"
+    copy {
+        from("src/main/resources/functions")
+        into(azureOutputDir)
+        include("**/function.json")
+    }
+}
+tasks.create<Copy>("copyOpenApiDef") {
+    println(this.name)
+    group = "azure"
+    copy {
+        from("src/main/resources")
+        into(azureOutputDir)
+        //include("swagger.*")
+        include("*")
+    }
+}
+
+tasks.create<Delete>("cleanAzureFunction") {
+    println(this.name)
+    group = "azure"
+    delete = setOf (azureOutputDir)
+}
+val packageAzureFunction = tasks.create<Copy>("packageAzureFunction") {
+    println(this.name)
+    println("$rootDir -> $azureOutputDir")
+    group = "azure"
+    copy {
+        from(rootDir)
+        into(azureOutputDir)
+        include("host.json", "local.settings.json")
+    }
+}
+packageAzureFunction.dependsOn("cleanAzureFunction", "build", "copyJar", "copyFunctionDefs", "copyOpenApiDef")
+
+
 
 defaultTasks("run")
