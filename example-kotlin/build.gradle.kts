@@ -4,7 +4,7 @@ plugins {
     java
     kotlin("jvm") version "1.3.21"
     application
-    id("com.github.johnrengelman.shadow") version "2.0.1"
+    id("com.github.johnrengelman.shadow") version "4.0.4"
 }
 
 version = "1.0-SNAPSHOT"
@@ -92,4 +92,4 @@ val packageAzureFunction = tasks.create<Copy>("packageAzureFunction") {
 packageAzureFunction.dependsOn("build", "copyJar", "copyFunctionDefs", "copyOpenApiDef")
 
 
-defaultTasks("run")
+//defaultTasks("run")
