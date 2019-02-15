@@ -43,10 +43,11 @@ val copyJar = tasks.create<Copy>("copyJar") {
     println("${rootProject.name}-all => function")
     group = "azure"
     copy {
-        from("$libsDir/${rootProject.name}-all.jar")
+        from("$libsDir/${rootProject.name}.jar")
         into(azureOutputDir)
         rename {fileName ->
-            fileName.replace("${rootProject.name}-all", "function")
+            println("rename: $fileName ...")
+            fileName.replace("${rootProject.name}", "function")
         }
         include("**/function.json")
     }
