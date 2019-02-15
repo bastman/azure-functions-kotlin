@@ -18,3 +18,8 @@ gradle-wrapper:
 	./gradlew --version
 	./gradlew wrapper --gradle-version=$(GRADLE_VERSION)
 	./gradlew --version
+
+
+## build-plugin:   : build azure plugin
+build-plugin:
+	cd azure-functions-gradle-plugin && ../gradlew install && ../gradlew uploadArchives

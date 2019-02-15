@@ -1,0 +1,74 @@
+buildscript {
+    def HOME=System.getenv('HOME')
+    println("==== HOME $HOME ====")
+    ext {
+        functionsCoreVersion     = "1.0.0-beta-4"
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        /*
+        maven {
+            url uri("file:/$HOME/.m2/repository")
+        }
+        */
+    }
+    dependencies {
+        classpath("com.microsoft.azure.functions:azure-functions-java-library:1.0.0-beta-4")
+        classpath group: 'com.microsoft.azure', name: 'azure-functions-gradle-plugin',
+                version: '1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'com.microsoft.azure.azurefunctions'
+
+import com.microsoft.azure.gradle.functions.*;
+
+dependencies {
+    compile 'com.microsoft.azure.functions:azure-functions-java-library:1.0.0-beta-4'
+}
+
+version = 'v0.15'
+
+description = "walkthrough-functions-app"
+
+def functionAppName = "lenaFunctionApp112233445"
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+azurefunctions {
+    authFile = 'C:/stuff/my3.azureauth'
+}
+
+task azureFunctionsPackage(type: PackageTask) {
+    dependsOn jar
+    appName = functionAppName
+    resourceGroup = "lenaFunctionApp"
+    region = "westus"
+}
+
+task azureFunctionsDeploy(type: DeployTask) {
+    appName = functionAppName
+    resourceGroup = "lenaFunctionApp"
+    region = "westus"
+}
+
+task azureFunctionsRun(type: RunTask) {
+    appName = functionAppName
+    resourceGroup = "lenaFunctionApp"
+    region = "westus"
+}
+
+task azureFunctionsAdd(type: AddTask) {
+    functionPackageName = "my.function"
+    functionTemplate = "HttpTrigger"
+}
+
+repositories {
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
