@@ -7,7 +7,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "4.0.4"
 }
 
-version = "1.0-SNAPSHOT"
+//version = "1.0-SNAPSHOT"
 
 application {
     mainClassName = "azure.tika.FunctionKt"
@@ -40,6 +40,7 @@ val libsDir:File = property("libsDir") as File
 val copyJar = tasks.create<Copy>("copyJar") {
     println(this.name)
     println("==== LIBS_DIR: $libsDir")
+    println("${rootProject.name}-all => function")
     group = "azure"
     copy {
         from("$libsDir/${rootProject.name}-all.jar")
