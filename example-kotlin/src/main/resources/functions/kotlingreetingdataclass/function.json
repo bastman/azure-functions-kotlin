@@ -1,0 +1,22 @@
+{
+  "scriptFile": "../function.jar",
+  "entryPoint": "azure.tika.FunctionKt.kotlinGreetingDataClass",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "name": "name",
+      "direction": "in",
+      "dataType": "string",
+      "authLevel": "function",
+      "methods": [
+        "post",
+        "get"
+      ]
+    },
+    {
+      "type": "http",
+      "name": "$return",
+      "direction": "out"
+    }
+  ]
+}
