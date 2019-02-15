@@ -56,7 +56,7 @@ tasks.create<Copy>("copyFunctionDefs") {
         include("**/function.json")
     }
 }
-tasks.create<Copy>("packageAzureFunction") {
+val packageAzureFunction = tasks.create<Copy>("packageAzureFunction") {
     println(this.name)
     group = "azure"
     copy {
@@ -65,6 +65,7 @@ tasks.create<Copy>("packageAzureFunction") {
         include("host.json", "local.settings.json")
     }
 }
+packageAzureFunction.dependsOn("cleanAzureFunction", "build", "copyJar", "copyFunctionDefs", "copyOpenApiDef")
 
 val libsDir:File = property("libsDir") as File
 val copyJar = tasks.create<Copy>("copyJar") {
