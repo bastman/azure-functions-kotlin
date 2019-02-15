@@ -22,3 +22,13 @@ Because: simple + straight forward
 
 ```
 
+## create function app (kotlin)
+
+```
+    still trial and error with azure docs.
+    
+    What files (*.jar, *.json) have to go where? 
+    How hard can it be to add this to docs? ... on 1st place ?
+
+```
+
