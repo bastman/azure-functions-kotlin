@@ -34,10 +34,12 @@ tasks.withType<KotlinCompile> {
 val azureOutputDir = "$buildDir/azure-functions/"
 
 tasks.create<Delete>("cleanAzureFunction") {
+    println(this.name)
     group = "azure"
     delete = setOf (azureOutputDir)
 }
 tasks.create<Copy>("copyOpenApiDef") {
+    println(this.name)
     group = "azure"
     copy {
         from("src/main/resources")
@@ -46,6 +48,7 @@ tasks.create<Copy>("copyOpenApiDef") {
     }
 }
 tasks.create<Copy>("copyFunctionDefs") {
+    println(this.name)
     group = "azure"
     copy {
         from("src/main/resources/functions")
@@ -54,6 +57,7 @@ tasks.create<Copy>("copyFunctionDefs") {
     }
 }
 tasks.create<Copy>("packageAzureFunction") {
+    println(this.name)
     group = "azure"
     copy {
         from(rootDir)
@@ -63,8 +67,9 @@ tasks.create<Copy>("packageAzureFunction") {
 }
 
 val libsDir:File = property("libsDir") as File
-println("==== LIBS_DIR: $libsDir")
-tasks.create<Copy>("copyJar") {
+val copyJar = tasks.create<Copy>("copyJar") {
+    println(this.name)
+    println("==== LIBS_DIR: $libsDir")
     group = "azure"
     copy {
         from("$libsDir/${rootProject.name}-all.jar")
@@ -76,3 +81,6 @@ tasks.create<Copy>("copyJar") {
     }
 }
 
+copyJar.dependsOn("build")
+
+defaultTasks("run")
