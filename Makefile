@@ -23,3 +23,6 @@ gradle-wrapper:
 ## build-plugin:   : build azure plugin
 build-plugin:
 	cd azure-functions-gradle-plugin && ../gradlew install && ../gradlew uploadArchives
+## build-fn:   : build azure function
+build-fn:
+	cd examples/walkthrough && ../../gradlew azureFunctionsPackage

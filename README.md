@@ -9,3 +9,13 @@ trying to make this run: https://github.com/lenala/azure-gradle-plugins/blob/mas
     $ make build-plugin
 
 ```
+
+## build function
+
+```
+    $ make build-fn
+    
+    -> ERROR ! :(
+
+```
+
