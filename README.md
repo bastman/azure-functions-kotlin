@@ -1,21 +1,24 @@
 # azure-functions-kotlin
 experimental
 
-trying to make this run: https://github.com/lenala/azure-gradle-plugins/blob/master/README.md
+## create function app (node.js)
 
-## build lenala/azure-gradle-plugins
-
-```
-    $ make build-plugin
+Why node.js ? 
+Because: simple + straight forward
 
 ```
-
-## build function
-
-```
-    $ make build-fn
+    $ make help
+    $ make fn.create-app.nodejs APP_NAME="example-nodejs"
+    $ make fn.app.start APP_NAME=example-nodejs
     
-    -> ERROR ! :(
+    $ curl -v http://localhost:7071/api/Func001?name=fooo
+    $ curl -v http://localhost:7071/api/Func002?name=fooo
+```
+
+## create function app (java)
+
+```
+    TODO: as soon as there is a proper gradle plugin available - 2021?
 
 ```
 

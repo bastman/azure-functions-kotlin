@@ -20,9 +20,17 @@ gradle-wrapper:
 	./gradlew --version
 
 
-## build-plugin:   : build azure plugin
-build-plugin:
-	cd azure-functions-gradle-plugin && ../gradlew install && ../gradlew uploadArchives
-## build-fn:   : build azure function
-build-fn:
-	cd examples/walkthrough && ../../gradlew azureFunctionsPackage
+## fn.create-app.nodejs: create app
+fn.create-app.nodejs: guard-APP_NAME
+	func init $(APP_NAME) --worker-runtime node
+	cd $(APP_NAME) && rm -rf .vscode
+	make fn.create-function.nodejs APP_NAME=$(APP_NAME) FUNCTION_NAME="Func001"
+	make fn.create-function.nodejs APP_NAME=$(APP_NAME) FUNCTION_NAME="Func002"
+## fn.create-function.nodejs: create fun
+fn.create-function.nodejs: guard-APP_NAME guard-FUNCTION_NAME
+	func init $(APP_NAME) --worker-runtime node
+	cd $(APP_NAME) && func new --name $(FUNCTION_NAME) --template "HttpTrigger"
+
+## fn.app.start:   : start app
+fn.app.start: guard-APP_NAME
+	cd $(APP_NAME) && func host start --build
