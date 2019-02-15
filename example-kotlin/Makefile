@@ -27,3 +27,9 @@ build: clean
 	./gradlew packageAzureFunction
 	mkdir -p build/azure-functions
 	cp build/libs/example-kotlin.jar build/azure-functions/function.jar
+## start
+start: build
+	cd build/azure-functions
+	func host start
+	func host start
+
