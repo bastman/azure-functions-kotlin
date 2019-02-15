@@ -37,3 +37,42 @@ tasks.create<Delete>("cleanAzureFunction") {
     group = "azure"
     delete = setOf (azureOutputDir)
 }
+tasks.create<Copy>("copyOpenApiDef") {
+    group = "azure"
+    copy {
+        from("src/main/resources")
+        into(azureOutputDir)
+        include("swagger.*")
+    }
+}
+tasks.create<Copy>("copyFunctionDefs") {
+    group = "azure"
+    copy {
+        from("src/main/resources/functions")
+        into(azureOutputDir)
+        include("**/function.json")
+    }
+}
+tasks.create<Copy>("packageAzureFunction") {
+    group = "azure"
+    copy {
+        from(rootDir)
+        into(azureOutputDir)
+        include("host.json", "local.settings.json")
+    }
+}
+
+val libsDir:File = property("libsDir") as File
+println("==== LIBS_DIR: $libsDir")
+tasks.create<Copy>("copyJar") {
+    group = "azure"
+    copy {
+        from("$libsDir/${rootProject.name}-all.jar")
+        into(azureOutputDir)
+        rename {fileName ->
+            fileName.replace("${rootProject.name}-all", "function")
+        }
+        include("**/function.json")
+    }
+}
+
