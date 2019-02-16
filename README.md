@@ -47,6 +47,11 @@ Because: simple + straight forward
     $ make -C example-kotlin start
     $ curl -v http://localhost:7071/api/kotlinping
     $ ab -n 1000 -c 100 http://localhost:7071/api/kotlinping
+
+    -> returns 500 (when build with "com.microsoft.azure:azure-functions-java-core:1.0.0-beta-2")    
+    -> returns 404 (when build with "com.microsoft.azure:azure-functions-java-core:1.0.0-beta-3")
+        --> "NOT FOUND" ? for an internal server error?
+
     
     
     "it's azure  ;)" ...
