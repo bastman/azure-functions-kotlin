@@ -1,7 +1,14 @@
 package azure.tika
 
 import com.microsoft.azure.serverless.functions.ExecutionContext
+import java.time.Instant
 
+fun kotlinPing(context: ExecutionContext):String {
+    context.logger.info {
+        "=====> handle api call kotlinPing ... fn=${context.functionName} invocationId=${context.invocationId}"
+    }
+    return "Pong: ${Instant.now()}"
+}
 
 fun kotlinGreetingDataClass(name: String? = "World", context: ExecutionContext): KotlinGreetingResponse {
     context.logger.info("kotlinGreetingDataClass Called")

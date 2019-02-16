@@ -37,10 +37,11 @@ build: clean
 	cp $(JAR_SOURCE_LOCATION) $(JAR_SINK_LOCATION)
 	cp -rf host.json $(AZURE_FUNC_DIST_DIR)/
 	cp -rf local.settings.json $(AZURE_FUNC_DIST_DIR)/
+	cp -rf build/resources/main/swagger.yaml $(AZURE_FUNC_DIST_DIR)/
 	ls -la $(AZURE_FUNC_DIST_DIR)
 ## start
 start: build
 	cd $(AZURE_FUNC_DIST_DIR)
-	func host start
+	func host start --port 7071 --script-root="$(AZURE_FUNC_DIST_DIR)"
 
 

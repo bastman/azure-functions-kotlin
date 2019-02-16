@@ -37,8 +37,16 @@ Because: simple + straight forward
     - function.jar
     - host.json
     - local.settings.json
+    - swagger.yaml
     - func001/function.json
     - func002/function.json
+    
+    
+    $ make -C example-kotlin help    
+    $ make -C example-kotlin build       
+    $ make -C example-kotlin start
+    $ curl -v http://localhost:7071/api/kotlinping
+    $ ab -n 1000 -c 100 http://localhost:7071/api/kotlinping
     
     
 
