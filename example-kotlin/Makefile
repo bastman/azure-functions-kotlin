@@ -41,7 +41,6 @@ build: clean
 	ls -la $(AZURE_FUNC_DIST_DIR)
 ## start
 start: build
-	cd $(AZURE_FUNC_DIST_DIR)
-	func host start --port 7071 --script-root="$(AZURE_FUNC_DIST_DIR)"
+	cd $(AZURE_FUNC_DIST_DIR) && func host start --port 7071
 
 

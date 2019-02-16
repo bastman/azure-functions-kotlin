@@ -49,6 +49,15 @@ Because: simple + straight forward
     $ ab -n 1000 -c 100 http://localhost:7071/api/kotlinping
     
     
+    "it's azure  ;)" ...
+    
+    [02/16/2019 08:35:50] Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
+    [02/16/2019 08:35:50] Result: Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
+    [02/16/2019 08:35:50] Exception: Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
+    [02/16/2019 08:35:50] Stack: java.lang.IllegalArgumentException: Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
+    [02/16/2019 08:35:50] 	at azure.tika.FunctionKt.kotlinPing(Function.kt)
+    
+    
 
 ```
 
