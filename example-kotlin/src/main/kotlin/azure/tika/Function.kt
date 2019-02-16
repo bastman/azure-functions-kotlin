@@ -1,8 +1,10 @@
 package azure.tika
 
 import com.microsoft.azure.serverless.functions.ExecutionContext
+import com.microsoft.azure.serverless.functions.annotation.FunctionName
 import java.time.Instant
 
+//@FunctionName("kotlinPing")
 fun kotlinPing(context: ExecutionContext):String {
     context.logger.info {
         "=====> handle api call kotlinPing ... fn=${context.functionName} invocationId=${context.invocationId}"
