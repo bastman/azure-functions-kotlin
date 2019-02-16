@@ -29,6 +29,18 @@ Because: simple + straight forward
     
     What files (*.jar, *.json) have to go where? 
     How hard can it be to add this to docs? ... on 1st place ?
+    
+    
+    DIST folder structure
+    
+    build/azure-functions:
+    - function.jar
+    - host.json
+    - local.settings.json
+    - func001/function.json
+    - func002/function.json
+    
+    
 
 ```
 
