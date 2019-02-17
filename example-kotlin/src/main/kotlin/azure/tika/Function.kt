@@ -1,22 +1,24 @@
 package azure.tika
 
-import com.microsoft.azure.serverless.functions.ExecutionContext
-import com.microsoft.azure.serverless.functions.HttpRequestMessage
-import com.microsoft.azure.serverless.functions.annotation.AuthorizationLevel
-import com.microsoft.azure.serverless.functions.annotation.FunctionName
-import com.microsoft.azure.serverless.functions.annotation.HttpTrigger
+
+import com.microsoft.azure.functions.*
+import com.microsoft.azure.functions.annotation.AuthorizationLevel
+import com.microsoft.azure.functions.annotation.FunctionName
+import com.microsoft.azure.functions.annotation.HttpTrigger
 import java.time.Instant
 import java.util.*
 
-@FunctionName("HttpTrigger")
+@FunctionName("run")
 fun run(
-        @HttpTrigger(name = "req", methods = ["GET", "POST"], authLevel = AuthorizationLevel.FUNCTION) request: HttpRequestMessage<Optional<String>>,
+        @HttpTrigger(name = "req", methods = [HttpMethod.GET, HttpMethod.POST], authLevel = AuthorizationLevel.FUNCTION) request: HttpRequestMessage<Optional<String>>,
         context: ExecutionContext
-)//: HttpResponseMessage<*>
-        : String {
+): HttpResponseMessage
+     //   : String
 
-    return "RUN."
-    /*
+{
+
+    //return "RUN."
+
     context.logger.info("Java HTTP trigger processed a request.")
 
     // Parse query parameter
@@ -30,12 +32,12 @@ fun run(
     return if (readEnv == null) {
         request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("AzureWebJobsStorage is empty").build()
     } else request.createResponseBuilder(HttpStatus.OK).body("Hello, $name").build()
-    */
+
 }
 
 
 fun foo(
-        @HttpTrigger(name = "req", methods = ["GET", "POST"], authLevel = AuthorizationLevel.ANONYMOUS)
+        @HttpTrigger(name = "req", methods = [HttpMethod.GET, HttpMethod.POST], authLevel = AuthorizationLevel.ANONYMOUS)
         req: HttpRequestMessage<Optional<String>>?
 ): String {
     return "foo() req=$req" // null, awesome ;)

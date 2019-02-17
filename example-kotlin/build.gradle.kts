@@ -19,7 +19,12 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.microsoft.azure:azure-functions-java-core:1.0.0-beta-2")
+    //implementation("com.microsoft.azure:azure-functions-java-core:1.0.0-beta-3")
+
+    // https://mvnrepository.com/artifact/com.microsoft.azure.functions/azure-functions-java-library
+    compile("com.microsoft.azure.functions:azure-functions-java-library:1.2.2")
+
+
     //implementation("org.apache.tika:tika-parsers:1.16")
     testCompile("junit", "junit", "4.12")
 }
