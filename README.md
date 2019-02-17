@@ -17,6 +17,8 @@ Because:
     
     $ curl -v http://localhost:7071/api/Func001?name=fooo
     $ curl -v http://localhost:7071/api/Func002?name=fooo
+    
+    response: 200 Hello foo
 ```
 
 ## create function app (java)
