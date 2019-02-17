@@ -18,7 +18,7 @@ Because:
     $ curl -v http://localhost:7071/api/Func001?name=fooo
     $ curl -v http://localhost:7071/api/Func002?name=fooo
     
-    response: 200 Hello foo
+    response: 200 - Hello foo
 ```
 
 ## create function app (java)
@@ -63,7 +63,23 @@ Because:
 
 ## create function app (kotlin)
 
+### quick start
+
 ```
+    $ make -C example-kotlin help    
+    $ make -C example-kotlin up
+    
+    $ curl http://localhost:7071/api/ping
+    => response: 200 - Hello from ping! 2019-02-17T08:53:45.683Z
+```
+
+### status
+
+```
+
+
+
+
     still trial and error with azure docs.
     
     What files (*.jar, *.json) have to go where? 
