@@ -1,6 +1,6 @@
 {
   "scriptFile": "../function.jar",
-  "entryPoint": "azure.tika.FunctionKt.kotlinPing",
+  "entryPoint": "azure.tika.FunctionKt.ping2",
   "bindings": [
     {
       "type": "httpTrigger",

@@ -1,15 +1,12 @@
 {
-    "version":  "2.0",
-
-    "functions": [
-
-        "echo",
-        "ping",
-        "ping1",
-        "kotlinping"
-    ],
-    "swagger": {
-        "enabled": true
-    }
-
+  "version": "2.0",
+  "swagger": {
+    "enabled": true
+  },
+  "functions": [
+    "echo",
+    "echo2",
+    "ping",
+    "ping2"
+  ]
 }

@@ -20,7 +20,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.microsoft.azure:azure-functions-java-core:1.0.0-beta-2")
-    implementation("org.apache.tika:tika-parsers:1.16")
+    //implementation("org.apache.tika:tika-parsers:1.16")
     testCompile("junit", "junit", "4.12")
 }
 

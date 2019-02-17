@@ -4,7 +4,7 @@
   "bindings": [
     {
       "type": "httpTrigger",
-      "name": "in",
+      "name": "name",
       "direction": "in",
       "authLevel": "function",
       "methods": [ "post","get" ]
