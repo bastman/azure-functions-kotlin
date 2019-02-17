@@ -76,6 +76,8 @@ Because:
 
 ### status
 
+https://github.com/Azure/azure-functions-host/blob/dev/sample/Java/HttpTrigger/function.json
+
 ```
 
     still trial and error with azure docs.
