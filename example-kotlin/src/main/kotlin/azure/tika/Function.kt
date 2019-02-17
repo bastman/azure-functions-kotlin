@@ -20,8 +20,7 @@ fun foo(
         @HttpTrigger(name = "req", methods = ["GET", "POST"] , authLevel = AuthorizationLevel.ANONYMOUS)
         req: HttpRequestMessage<Optional<String>>?
 ):String {
-    //AuthorizationLevel.ANONYMOUS
-    return "foo() req=$req"
+    return "foo() req=$req" // null, awesome ;)
 }
 
 fun ping(): String = "Hello from ping at ${now()} ."
