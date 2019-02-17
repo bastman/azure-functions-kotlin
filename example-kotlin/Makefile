@@ -23,9 +23,9 @@ help : Makefile
 
 ## gradle-wrapper:   : install gradle wrapper
 gradle-wrapper:
-	./gradlew --version
-	./gradlew wrapper --gradle-version=$(GRADLE_VERSION)
-	./gradlew --version
+	$(GRADLEW) --version
+	$(GRADLEW) wrapper --gradle-version=$(GRADLE_VERSION)
+	$(GRADLEW) --version
 
 ## clean
 clean:
