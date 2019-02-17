@@ -1,11 +1,13 @@
 GRADLE_VERSION=5.2.1
 
 GRADLEW=./gradlew
-AZURE_FUNC_DIST_DIR=build/azure-functions
+
+FAAS_SOURCE_DIR=faas
+FAAS_DIST_DIR=build/faas
 JAR_SOURCE_FILENAME=example-kotlin.jar
 JAR_SOURCE_LOCATION=build/libs/$(JAR_SOURCE_FILENAME)
 JAR_SINK_FILENAME=function.jar
-JAR_SINK_LOCATION=$(AZURE_FUNC_DIST_DIR)/$(JAR_SINK_FILENAME)
+JAR_SINK_LOCATION=$(FAAS_DIST_DIR)/$(JAR_SINK_FILENAME)
 
 
 print-%: ; @echo $*=$($*)
@@ -28,20 +30,18 @@ gradle-wrapper:
 ## clean
 clean:
 	$(GRADLEW) clean
-	-rm -rf $(AZURE_FUNC_DIST_DIR)
+	-rm -rf $(FAAS_DIST_DIR)
 
 ## build
 build: clean
-	$(GRADLEW) packageAzureFunction
-	mkdir -p $(AZURE_FUNC_DIST_DIR)
+	$(GRADLEW) shadowJar
+	mkdir -p $(FAAS_DIST_DIR)
+	cp -rf $(FAAS_SOURCE_DIR)/** $(FAAS_DIST_DIR)/
 	cp $(JAR_SOURCE_LOCATION) $(JAR_SINK_LOCATION)
-	cp -rf host.json $(AZURE_FUNC_DIST_DIR)/
-	cp -rf local.settings.json $(AZURE_FUNC_DIST_DIR)/
-	cp -rf build/resources/main/swagger.yaml $(AZURE_FUNC_DIST_DIR)/
-	ls -la $(AZURE_FUNC_DIST_DIR)
+	ls -la $(FAAS_DIST_DIR)
 ## start
 start:
-	cd $(AZURE_FUNC_DIST_DIR) && func host start --port 7071
+	cd $(FAAS_DIST_DIR) && func host start --port 7071
 
 ## up
 up: build
