@@ -104,7 +104,7 @@ Because:
     - you don't need to bundle your resources/functions/**.json into fat jar
     - the json files need to be provided in the azure-dist folder, e.g.:
     
-    build/azure-functions:
+    build/faas:
     - function.jar
     - host.json
     - local.settings.json
