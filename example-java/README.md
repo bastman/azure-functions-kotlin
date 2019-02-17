@@ -9,7 +9,7 @@ Followed tutorial: https://docs.microsoft.com/en-us/azure/azure-functions/functi
     
     should work, right?
     
-    well, it's azure ...
+    well ...
 
 
 [INFO] ------------------------------------------------------------------------
