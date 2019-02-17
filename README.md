@@ -65,7 +65,7 @@ Because:
     
     DIST folder structure
     
-    build/azure-functions:
+    build/faas:
     - function.jar
     - host.json
     - local.settings.json
@@ -74,14 +74,13 @@ Because:
     - func002/function.json
     
     to serve that you need to ...
-    $ cd build/azure-functions && func start
+    $ cd build/faas && func start
     
-    
+
     $ make -C example-kotlin help    
     $ make -C example-kotlin build       
     $ make -C example-kotlin start
     $ curl -v http://localhost:7071/api/kotlinping
-    $ ab -n 1000 -c 100 http://localhost:7071/api/kotlinping
 
     -> returns 500 (when build with "com.microsoft.azure:azure-functions-java-core:1.0.0-beta-2")    
     -> returns 404 (when build with "com.microsoft.azure:azure-functions-java-core:1.0.0-beta-3")
@@ -114,11 +113,12 @@ Because:
     - func002/function.json
     
     a function:
-    - must have a definition in functions/{{func-name}}/function.json
+    - must have a definition {{func-name}}/function.json
     - must be whitelisted in host.json
     
-    the annotations, e.g. @FunctionName("pingxxx")
-    - have no meaning ? just used by the maven-plugin to auto-magically generate functions/{{func-name}}/function.json ???
+    the annotations, e.g. @FunctionName("pingxxx") ...
+    - have no meaning in runtime ? 
+    - just used in compile-time by the maven-plugin to auto-magically generate functions/{{func-name}}/function.json ???
 
 ```
 
