@@ -41,6 +41,9 @@ Because: simple + straight forward
     - func001/function.json
     - func002/function.json
     
+    to serve that you need to ...
+    $ cd build/azure-functions && func start
+    
     
     $ make -C example-kotlin help    
     $ make -C example-kotlin build       
@@ -65,6 +68,18 @@ Because: simple + straight forward
     
     
     Findings ...
+    
+    the fat jar:
+    - you don't need to bundle your resources/functions/**.json into fat jar
+    - the json files need to be provided in the azure-dist folder, e.g.:
+    
+    build/azure-functions:
+    - function.jar
+    - host.json
+    - local.settings.json
+    - swagger.yaml
+    - func001/function.json
+    - func002/function.json
     
     a function:
     - must have a definition in functions/{{func-name}}/function.json
