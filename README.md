@@ -88,7 +88,8 @@ Because:
 
     
     
-    "it's azure  ;)" ...
+    A cause ...
+   
     
     [02/16/2019 08:35:50] Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
     [02/16/2019 08:35:50] Result: Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
