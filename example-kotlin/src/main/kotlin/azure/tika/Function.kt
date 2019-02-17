@@ -8,9 +8,10 @@ import com.microsoft.azure.functions.annotation.HttpTrigger
 import java.time.Instant
 import java.util.*
 
-@FunctionName("run")
+//@FunctionName("run")
 fun run(
-        @HttpTrigger(name = "req", methods = [HttpMethod.GET, HttpMethod.POST], authLevel = AuthorizationLevel.FUNCTION) request: HttpRequestMessage<Optional<String>>,
+        //@HttpTrigger(name = "req", methods = [HttpMethod.GET, HttpMethod.POST], authLevel = AuthorizationLevel.FUNCTION)
+        request: HttpRequestMessage<Optional<String>>,
         context: ExecutionContext
 ): HttpResponseMessage
      //   : String
