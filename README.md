@@ -77,9 +77,6 @@ Because:
 
 ```
 
-
-
-
     still trial and error with azure docs.
     
     What files (*.jar, *.json) have to go where? 
@@ -145,4 +142,65 @@ Because:
     - just used in compile-time by the maven-plugin to auto-magically generate functions/{{func-name}}/function.json ???
 
 ```
+
+### side note: run func local (jvm)
+
+- this entire thing is weird and feels pre-alpha
+
+- issue: CTRL+C
+```
+      Stopping host...
+[02/17/2019 09:31:05] Stopping JobHost
+[02/17/2019 09:31:05] Job host stopped
+info: Host.General[0]
+      Host shutdown completed.
+[02/17/2019 09:31:05] Language Worker Process exited.
+[02/17/2019 09:31:05] /Users/sebastian.schmidt/.sdkman/candidates/java/current/bin/java exited with code 137
+[02/17/2019 09:31:05]  .
+[02/17/2019 09:31:05] Language Worker Process exited.
+[02/17/2019 09:31:05] Worker process is not attached. . Microsoft.Azure.WebJobs.Script: Cannot access a disposed object.
+[02/17/2019 09:31:05] Object name: 'ScriptEventManager'.
+
+Unhandled Exception: System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'ScriptEventManager'.
+   at Microsoft.Azure.WebJobs.Script.Eventing.ScriptEventManager.ThrowIfDisposed() in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Eventing\ScriptEventManager.cs:line 34
+   at Microsoft.Azure.WebJobs.Script.Eventing.ScriptEventManager.Publish(ScriptEvent scriptEvent) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Eventing\ScriptEventManager.cs:line 16
+   at Microsoft.Azure.WebJobs.Script.Rpc.LanguageWorkerChannel.HandleWorkerError(Exception exc) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Rpc\LanguageWorkerChannel.cs:line 480
+   at Microsoft.Azure.WebJobs.Script.Rpc.LanguageWorkerChannel.OnProcessExited(Object sender, EventArgs e) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Rpc\LanguageWorkerChannel.cs:line 205
+   at Microsoft.Azure.WebJobs.Script.Rpc.LanguageWorkerChannel.<StartProcess>b__34_2(Object sender, EventArgs e) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Rpc\LanguageWorkerChannel.cs:line 154
+   at System.Diagnostics.Process.OnExited()
+   at System.Diagnostics.Process.RaiseOnExited()
+   at System.Diagnostics.Process.CompletionCallback(Object waitHandleContext, Boolean wasSignaled)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw() 
+
+```
+
+- issue: thread-safety?
+```
+
+sometimes my function gets an instance of ExecutionContextDataSource passed in as argument
+
+result:
+Hello from echo at 2019-02-17T09:29:02.981Z.  req=com.microsoft.azure.functions.worker.binding.ExecutionContextDataSource@38ab9bd3
+
+
+```
+
+- issue: no ExecutionContext
+```
+Did not manage to access the ExecutionContext in function (NPE !)
+
+```
+
+- issue: no request query params
+```
+Did not manage to access query params in function (NPE !)
+Lack of docs? Or is it broken at all?
+
+```
+
+
+
 
