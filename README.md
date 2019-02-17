@@ -4,6 +4,7 @@ experimental
 ## create function app (node.js)
 
 Why node.js ? 
+
 Because: 
 - simple 
 - straight forward
@@ -185,6 +186,13 @@ sometimes my function gets an instance of ExecutionContextDataSource passed in a
 result:
 Hello from echo at 2019-02-17T09:29:02.981Z.  req=com.microsoft.azure.functions.worker.binding.ExecutionContextDataSource@38ab9bd3
 
+reproduce?
+
+- create fun(req:Any?):String
+- binding: name="req"
+-> curl this func
+
+-> curl another func ... now this func gets ExecutionContextDataSource as well
 
 ```
 
