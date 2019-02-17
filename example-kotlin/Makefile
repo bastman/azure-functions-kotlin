@@ -40,7 +40,9 @@ build: clean
 	cp -rf build/resources/main/swagger.yaml $(AZURE_FUNC_DIST_DIR)/
 	ls -la $(AZURE_FUNC_DIST_DIR)
 ## start
-start: build
+start:
 	cd $(AZURE_FUNC_DIST_DIR) && func host start --port 7071
 
-
+## up
+up: build
+	make start

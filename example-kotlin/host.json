@@ -3,7 +3,9 @@
 
     "functions": [
 
-
+        "echo",
+        "ping",
+        "ping1",
         "kotlinping"
     ],
     "swagger": {

@@ -63,6 +63,15 @@ Because: simple + straight forward
     [02/16/2019 08:35:50] 	at azure.tika.FunctionKt.kotlinPing(Function.kt)
     
     
+    
+    Findings ...
+    
+    a function:
+    - must have a definition in functions/{{func-name}}/function.json
+    - must be whitelisted in host.json
+    
+    the annotations, e.g. @FunctionName("pingxxx")
+    - have no meaning ? just just by the maven-plugin to generate functions/{{func-name}}/function.json ???
 
 ```
 
