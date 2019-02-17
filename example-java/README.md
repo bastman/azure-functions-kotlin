@@ -4,8 +4,8 @@ Followed tutorial: https://docs.microsoft.com/en-us/azure/azure-functions/functi
 
 
 ```
-    $ cd example-java
-    $ mvn azure-functions:run
+    $ make -C example-java help
+    $ make -C example-java up
     
     should work, right?
     

@@ -33,6 +33,11 @@ Because:
     
     ... and ...
     
+    $ make -C example-java help
+    $ make -C example-java up
+    
+    ... and ...
+    
     it does not work :(
     
     [INFO] ------------------------------------------------------------------------
