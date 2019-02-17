@@ -8,6 +8,7 @@
     "echo2",
     "ping",
     "ping2",
-    "foo"
+    "foo",
+    "run"
   ]
 }

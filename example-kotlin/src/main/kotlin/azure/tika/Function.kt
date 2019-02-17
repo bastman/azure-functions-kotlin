@@ -3,23 +3,41 @@ package azure.tika
 import com.microsoft.azure.serverless.functions.ExecutionContext
 import com.microsoft.azure.serverless.functions.HttpRequestMessage
 import com.microsoft.azure.serverless.functions.annotation.AuthorizationLevel
+import com.microsoft.azure.serverless.functions.annotation.FunctionName
 import com.microsoft.azure.serverless.functions.annotation.HttpTrigger
 import java.time.Instant
 import java.util.*
 
+@FunctionName("HttpTrigger")
+fun run(
+        @HttpTrigger(name = "req", methods = ["GET", "POST"], authLevel = AuthorizationLevel.FUNCTION) request: HttpRequestMessage<Optional<String>>,
+        context: ExecutionContext
+)//: HttpResponseMessage<*>
+        : String {
 
-/*
-public static String HttpTriggerJavaMetadata(
-@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
-@BindingName("firstName") String queryValue1, @BindingName("lastName") String queryValue2
-)
-*/
+    return "RUN."
+    /*
+    context.logger.info("Java HTTP trigger processed a request.")
+
+    // Parse query parameter
+    val query = request.queryParameters["name"]
+    val name = request.body.orElse(query)
+    val readEnv = System.getenv("AzureWebJobsStorage")
+
+    if (name == null) {
+        return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a name on the query string or in the request body").build()
+    }
+    return if (readEnv == null) {
+        request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("AzureWebJobsStorage is empty").build()
+    } else request.createResponseBuilder(HttpStatus.OK).body("Hello, $name").build()
+    */
+}
 
 
 fun foo(
-        @HttpTrigger(name = "req", methods = ["GET", "POST"] , authLevel = AuthorizationLevel.ANONYMOUS)
+        @HttpTrigger(name = "req", methods = ["GET", "POST"], authLevel = AuthorizationLevel.ANONYMOUS)
         req: HttpRequestMessage<Optional<String>>?
-):String {
+): String {
     return "foo() req=$req" // null, awesome ;)
 }
 
@@ -33,7 +51,7 @@ fun ping2(context: ExecutionContext): String {
 
 
 fun echo(req: Any?): String = "Hello from echo at ${now()}.  req=$req."
-fun echo2(req: Any?, name:Any?): String {
+fun echo2(req: Any?, name: Any?): String {
 
     val isExecutionContext = req is ExecutionContext
     return """
