@@ -1,0 +1,14 @@
+{
+  "scriptFile": "../function.jar",
+  "entryPoint": "azure.tika.FunctionKt.tika",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "direction" : "in",
+    "methods" : [ "POST" ],
+    "name" : "req"
+  }, {
+    "type" : "http",
+    "direction" : "out",
+    "name" : "$return"
+  } ]
+}

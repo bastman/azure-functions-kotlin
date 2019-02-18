@@ -7,6 +7,11 @@ import com.microsoft.azure.functions.HttpResponseMessage
 import com.microsoft.azure.functions.HttpStatus
 import java.time.Instant
 import java.util.*
+import org.apache.tika.io.TikaInputStream
+import org.apache.tika.metadata.Metadata
+import org.apache.tika.parser.AutoDetectParser
+import org.apache.tika.parser.ParseContext
+import org.apache.tika.sax.BodyContentHandler
 
 fun foo(req: HttpRequestMessage<Optional<String>>): String = "foo() req=$req"
 fun ping(): String = "Hello from ping at ${now()} ."
@@ -57,6 +62,23 @@ fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext
                     """.trimIndent()
             )
             .build()
+}
+
+
+data class TikaResponse(val metadata: Metadata, val content: String)
+
+fun tika(content: ByteArray, context: ExecutionContext): TikaResponse {
+    context.logger.info("tika")
+
+    val parser = AutoDetectParser()
+    val handler = BodyContentHandler()
+    val metadata = Metadata()
+    val parseContext = ParseContext()
+
+    val stream = TikaInputStream.get(content.inputStream())
+    parser.parse(stream, handler, metadata, parseContext)
+
+    return TikaResponse(metadata, handler.toString())
 }
 
 

@@ -86,6 +86,8 @@ Here they are ...
     - swagger.yaml
     - func001/function.json
     - func002/function.json
+    
+    Note: your functions need to be whitelisted in host.json !
 
 4. start a function app from distribution folder
 
