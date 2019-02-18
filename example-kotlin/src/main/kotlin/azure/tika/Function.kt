@@ -7,6 +7,7 @@ import com.microsoft.azure.functions.annotation.HttpTrigger
 import java.time.Instant
 import java.util.*
 
+fun foo(req: HttpRequestMessage<Optional<String>>): String = "foo() req=$req"
 fun ping(): String = "Hello from ping at ${now()} ."
 fun ping2(context: ExecutionContext): String {
     context.logger.info { "${context.functionName} ${context.invocationId} - triggered by HttpTrigger. " }
@@ -14,6 +15,8 @@ fun ping2(context: ExecutionContext): String {
         Hello from ${context.functionName} at ${now()}
     """.trimIndent()
 }
+
+
 
 fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext): HttpResponseMessage {
     context.logger.info("${context.functionName} ${context.invocationId} - triggered by HttpTrigger. ")
@@ -44,12 +47,7 @@ fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext
 }
 
 
-fun foo(
-        @HttpTrigger(name = "req", methods = [HttpMethod.GET, HttpMethod.POST], authLevel = AuthorizationLevel.ANONYMOUS)
-        req: HttpRequestMessage<Optional<String>>?
-): String {
-    return "foo() req=$req" // null, awesome ;)
-}
+
 
 
 
