@@ -72,7 +72,7 @@ Because:
     $ curl -v POST http://localhost:7071/api/run?name=123 -d ""{\"foo\":\"bar\"}""
     $ curl -v POST http://localhost:7071/api/echo2?name=123 -d ""{\"foo\":\"bar\"}""
     
-    $ curl -v -X POST http://localhost:7071/api/tika \
+    $ curl POST http://localhost:7071/api/tika http://localhost:7071/api/tika \
           -H 'accept:n' \
           -H 'cache-control: no-cache'   \
           -H 'content-type: application/octet-stream' \

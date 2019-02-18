@@ -5,13 +5,13 @@ import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpRequestMessage
 import com.microsoft.azure.functions.HttpResponseMessage
 import com.microsoft.azure.functions.HttpStatus
-import java.time.Instant
-import java.util.*
 import org.apache.tika.io.TikaInputStream
 import org.apache.tika.metadata.Metadata
 import org.apache.tika.parser.AutoDetectParser
 import org.apache.tika.parser.ParseContext
 import org.apache.tika.sax.BodyContentHandler
+import java.time.Instant
+import java.util.*
 
 fun foo(req: HttpRequestMessage<Optional<String>>): String = "foo() req=$req"
 fun ping(): String = "Hello from ping at ${now()} ."
@@ -67,25 +67,28 @@ fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext
 
 data class TikaResponse(val metadata: Metadata, val content: String)
 
-fun tika(content: ByteArray, context: ExecutionContext): String {
+fun tika(sourceContent: ByteArray, context: ExecutionContext): TikaResponse {
     context.logger.info("${context.functionName} ${context.invocationId}")
-    context.logger.info("content: $content")
+    context.logger.info("sourceContent: $sourceContent")
 
-    return "Tika here :)"
-
-    /*
     val parser = AutoDetectParser()
-    val handler = BodyContentHandler()
+    val bodyContentHandler = BodyContentHandler()
     val metadata = Metadata()
     val parseContext = ParseContext()
 
-    val stream = TikaInputStream.get(content.inputStream())
-    parser.parse(stream, handler, metadata, parseContext)
+    val stream: TikaInputStream = TikaInputStream.get(sourceContent.inputStream())
+    parser.parse(stream, bodyContentHandler, metadata, parseContext)
 
-    return TikaResponse(metadata, handler.toString())
-    */
+    val sinkContent: String = bodyContentHandler.toString()
+    context.logger.info("sinkMetadata: $metadata")
+    context.logger.info("sinkContent: $sinkContent")
+    context.logger.info("parser: $parser")
+    context.logger.info("parseContext: $parseContext")
 
-
+    return TikaResponse(
+            metadata = metadata,
+            content = sinkContent
+    ).also { context.logger.info("response: $it") }
 }
 
 fun tika2(content: ByteArray, context: ExecutionContext): TikaResponse {
@@ -96,12 +99,10 @@ fun tika2(content: ByteArray, context: ExecutionContext): TikaResponse {
     val metadata = Metadata()
     val parseContext = ParseContext()
 
-    val stream = TikaInputStream.get(content.inputStream())
+    val stream: TikaInputStream = TikaInputStream.get(content.inputStream())
     parser.parse(stream, handler, metadata, parseContext)
 
     return TikaResponse(metadata, handler.toString())
 }
-
-
 
 private fun now(): Instant = Instant.now()
