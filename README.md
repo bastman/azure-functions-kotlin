@@ -39,14 +39,12 @@ Because:
     $ curl http://localhost:7071/api/ping
     => response: 200 - Hello from ping! 2019-02-17T08:53:45.683Z
     
-    Finally, it works :)
-    took me just 1 weekend to make a simple "hello world" work ;)
-    
     $ curl -v POST http://localhost:7071/api/run?name=123
     ==> response: 200 -  Hello, 123
     
     more example requests ...
     
+    $ curl -v POST http://localhost:7071/api/run?name=123 -d ""{\"foo\":\"bar\"}""
     $ curl -v POST http://localhost:7071/api/echo2?name=123 -d ""{\"foo\":\"bar\"}""
     
 ```
