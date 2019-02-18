@@ -3,6 +3,28 @@ experimental
 
 heavily expired by Duncan Dickinson: https://github.com/dedickinson/azure-function-tika
 
+## Prepare OS X
+
+### Java 8
+```
+# Java 8 (e.g.: 8u144-zulu) 
+# You may want to use sdkman to manage sdks
+
+$ sdk list java
+$ sdk install 8u144-zulu
+```
+### .NET Core 2.0
+
+https://www.microsoft.com/net/learn/get-started/macos
+
+### azure-functions-core-tools@core
+```
+# you may want to use nvm to manage your sdk
+
+$ nvm use v10.15.1
+$ npm install -g azure-functions-core-tools@core
+```
+
 ## create function app (node.js)
 
 Why node.js ? 
