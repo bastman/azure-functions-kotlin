@@ -77,6 +77,25 @@ Because:
           -H 'content-type: application/octet-stream' \
           --data-binary @example-kotlin/src/test/resources/TikaTestDocument.pdf
 
+    ==> response:
+    
+    {
+      "metadata": {
+        "metadata": {
+          "date": [
+            "2017-11-25T03:05:20Z"
+          ],
+          "pdf:PDFVersion": [
+            "1.7"
+          ],
+          "pdf:docinfo:title": [
+            "Tika Test Document"
+          ],
+          "subject": [
+            "testing"
+          ],
+          
+    ( ... )
     
 ```
 
