@@ -13,20 +13,20 @@ import org.apache.tika.sax.BodyContentHandler
 import java.time.Instant
 import java.util.*
 
-fun foo(req: HttpRequestMessage<Optional<String>>): String = "foo() req=$req"
-fun ping(): String = "Hello from ping at ${now()} ."
-fun ping2(context: ExecutionContext): String {
+fun fooV1(req: HttpRequestMessage<Optional<String>>): String = "fooV1() req=$req"
+fun pingV1(): String = "Hello from pingV1 at ${now()} ."
+fun pingV2(context: ExecutionContext): String {
     context.logger.info { "${context.functionName} ${context.invocationId} - triggered by HttpTrigger. " }
     return """
         Hello from ${context.functionName} at ${now()}
     """.trimIndent()
 }
 
-fun echo(context: Any?): String = "Hello from echo at ${now()}.  context=$context."
-fun echo2(context: Any?, req: HttpRequestMessage<String?>): String {
+fun echoV1(context: Any?): String = "Hello from echo at ${now()}.  context=$context."
+fun echoV2(context: Any?, req: HttpRequestMessage<String?>): String {
     val isExecutionContext = context is ExecutionContext
     return """
-        Hello from echo2 at ${now()}.
+        Hello from echoV2 at ${now()}.
         context=$context - isExecutionContext=$isExecutionContext
         req.method = ${req.httpMethod}
         req.uri = ${req.uri}
@@ -36,7 +36,7 @@ fun echo2(context: Any?, req: HttpRequestMessage<String?>): String {
         """
 }
 
-fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext): HttpResponseMessage {
+fun runV1(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext): HttpResponseMessage {
     context.logger.info("${context.functionName} ${context.invocationId} - triggered by HttpTrigger. ")
     val azureWebJobsStorage: String = System.getenv("AzureWebJobsStorage")
             ?: return request
@@ -67,7 +67,7 @@ fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext
 
 data class TikaResponse(val metadata: Metadata, val content: String)
 
-fun tika(sourceContent: ByteArray, context: ExecutionContext): TikaResponse {
+fun tikaV1(sourceContent: ByteArray, context: ExecutionContext): TikaResponse {
     context.logger.info("${context.functionName} ${context.invocationId}")
     context.logger.info("sourceContent: $sourceContent")
 
@@ -91,7 +91,7 @@ fun tika(sourceContent: ByteArray, context: ExecutionContext): TikaResponse {
     ).also { context.logger.info("response: $it") }
 }
 
-fun tika2(content: ByteArray, context: ExecutionContext): TikaResponse {
+fun tikaV2(content: ByteArray, context: ExecutionContext): TikaResponse {
     context.logger.info("tika2")
 
     val parser = AutoDetectParser()

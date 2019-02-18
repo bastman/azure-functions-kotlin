@@ -1,6 +1,6 @@
 {
   "scriptFile": "../function.jar",
-  "entryPoint": "azure.tika.FunctionKt.echo",
+  "entryPoint": "azure.tika.FunctionKt.pingV1",
   "bindings": [
     {
       "type": "httpTrigger",

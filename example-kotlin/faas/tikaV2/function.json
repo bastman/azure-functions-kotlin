@@ -1,10 +1,10 @@
 {
   "scriptFile": "../function.jar",
-  "entryPoint": "azure.tika.FunctionKt.tika2",
+  "entryPoint": "azure.tika.FunctionKt.tikaV2",
   "bindings" : [ {
 
     "type": "httpTrigger",
-    "name": "content",
+    "name": "req",
     "direction": "in",
     "dataType": "binary",
     "path": "container/myfile.bin",

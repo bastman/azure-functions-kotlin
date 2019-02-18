@@ -1,10 +1,10 @@
 {
   "scriptFile": "../function.jar",
-  "entryPoint": "azure.tika.FunctionKt.echo2",
+  "entryPoint": "azure.tika.FunctionKt.fooV1",
   "bindings": [
     {
       "type": "httpTrigger",
-      "name": "name",
+      "name": "req",
       "direction": "in",
       "authLevel": "function",
       "methods": [ "post","get" ]

@@ -1,6 +1,6 @@
 {
   "scriptFile": "../function.jar",
-  "entryPoint": "azure.tika.FunctionKt.tika",
+  "entryPoint": "azure.tika.FunctionKt.tikaV1",
   "bindings" : [ {
 
     "type" : "httpTrigger",

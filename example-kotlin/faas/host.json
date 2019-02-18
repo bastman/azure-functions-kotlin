@@ -4,13 +4,13 @@
     "enabled": true
   },
   "functions": [
-    "echo",
-    "echo2",
-    "ping",
-    "ping2",
-    "foo",
-    "run",
-    "tika",
-    "tika2"
+    "echoV1",
+    "echoV2",
+    "pingV1",
+    "pingV2",
+    "fooV1",
+    "runV1",
+    "tikaV1",
+    "tikaV2"
   ]
 }
