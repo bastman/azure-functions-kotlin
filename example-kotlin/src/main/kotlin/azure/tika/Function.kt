@@ -67,8 +67,29 @@ fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext
 
 data class TikaResponse(val metadata: Metadata, val content: String)
 
-fun tika(content: ByteArray, context: ExecutionContext): TikaResponse {
-    context.logger.info("tika")
+fun tika(content: ByteArray, context: ExecutionContext): String {
+    context.logger.info("${context.functionName} ${context.invocationId}")
+    context.logger.info("content: $content")
+
+    return "Tika here :)"
+
+    /*
+    val parser = AutoDetectParser()
+    val handler = BodyContentHandler()
+    val metadata = Metadata()
+    val parseContext = ParseContext()
+
+    val stream = TikaInputStream.get(content.inputStream())
+    parser.parse(stream, handler, metadata, parseContext)
+
+    return TikaResponse(metadata, handler.toString())
+    */
+
+
+}
+
+fun tika2(content: ByteArray, context: ExecutionContext): TikaResponse {
+    context.logger.info("tika2")
 
     val parser = AutoDetectParser()
     val handler = BodyContentHandler()
@@ -80,6 +101,7 @@ fun tika(content: ByteArray, context: ExecutionContext): TikaResponse {
 
     return TikaResponse(metadata, handler.toString())
 }
+
 
 
 private fun now(): Instant = Instant.now()

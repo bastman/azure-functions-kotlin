@@ -49,7 +49,7 @@ Because:
     $ curl -v POST http://localhost:7071/api/run?name=123 -d ""{\"foo\":\"bar\"}""
     $ curl -v POST http://localhost:7071/api/echo2?name=123 -d ""{\"foo\":\"bar\"}""
     
-    $ curl -X POST http://localhost:7071/api/kotlintika \
+    $ curl -X POST http://localhost:7071/api/tika \
           -H 'accept:n' \
           -H 'cache-control: no-cache'   \
           -H 'content-type: application/octet-stream' \
