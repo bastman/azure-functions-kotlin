@@ -3,20 +3,14 @@ package azure.tika
 
 import com.microsoft.azure.functions.*
 import com.microsoft.azure.functions.annotation.AuthorizationLevel
-import com.microsoft.azure.functions.annotation.FunctionName
 import com.microsoft.azure.functions.annotation.HttpTrigger
 import java.time.Instant
 import java.util.*
 
-//@FunctionName("run")
 fun run(
-        //@HttpTrigger(name = "req", methods = [HttpMethod.GET, HttpMethod.POST], authLevel = AuthorizationLevel.FUNCTION)
         request: HttpRequestMessage<Optional<String>>,
         context: ExecutionContext
-): HttpResponseMessage
-     //   : String
-
-{
+): HttpResponseMessage {
 
     //return "RUN."
 
