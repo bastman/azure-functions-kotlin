@@ -61,6 +61,9 @@ Because:
     $ make -C example-kotlin help    
     $ make -C example-kotlin up
     
+    # curl all endpoints
+    $ make -C example-kotlin curl-api
+    
     $ curl http://localhost:7071/api/ping
     => response: 200 - Hello from ping! 2019-02-17T08:53:45.683Z
     
