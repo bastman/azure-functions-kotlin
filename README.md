@@ -22,22 +22,98 @@ Because:
     response: 200 - Hello foo
 ```
 
+## create function app (kotlin)
+
+### related vendor projects
+
+- the lib: https://github.com/Azure/azure-functions-java-library
+- the runtime: https://github.com/Azure/azure-functions-java-worker
+- example: https://github.com/Azure/azure-functions-host/blob/dev/sample/Java/HttpTrigger/function.json
+
+### quick start
+
+```
+    $ make -C example-kotlin help    
+    $ make -C example-kotlin up
+    
+    $ curl http://localhost:7071/api/ping
+    => response: 200 - Hello from ping! 2019-02-17T08:53:45.683Z
+    
+    Finally, it works :)
+    took me just 1 weekend to make a simple "hello world" work ;)
+    
+    $ curl -v POST http://localhost:7071/api/run?name=123
+    ==> response: 200 -  Hello, 123
+```
+
+### the trick
+
+Azure documentation lacks some essentials. 
+
+Here they are ...
+
+1. use the "right" lib from maven central
+
+```
+    compile("com.microsoft.azure.functions:azure-functions-java-library:1.2.2")
+```
+
+```
+// WARNING! DO NOT USE THIS ...
+// compile("com.microsoft.azure:azure-functions-java-core:1.0.0-beta-3")
+
+ ```
+
+2. create a fat jar
+ 
+```
+    $ gradlew shadowJar
+``` 
+
+3. create a distribution (e.g.: build/faas)
+
+    distribution folder structure
+    
+    build/faas:
+    - function.jar
+    - host.json
+    - local.settings.json
+    - swagger.yaml
+    - func001/function.json
+    - func002/function.json
+
+4. start a function app from distribution folder
+
+```
+    $ cd build/faas && func start
+```
+
+## FAQ:
+
+Q: I can't see the annotations, mentioned in the java-maven-based tutorial, e.g.:
+    
+    @FunctionName
+    @HttpTrigger
+
+   Do I need them?
+   
+A: No. 
+
+    They have no meaning in runtime. 
+    The maven-plugin use them in compile time to generate your {{funcname}}/function.json
+
+
+
 ## create function app (java)
 
 ```
     Dear, Azure - I don't want to use maven.
     Could you please provide instructions on how to build & run with gradle?
     
-    But hey, I decided to follow your maven-based tutorial ...
-    
-    tutorial: https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-maven-intellij
-    
-    ... and ...
+    The maven based tutorial: https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-maven-intellij
     
     $ make -C example-java help
     $ make -C example-java up
-    
-    ... and ...
     
     it does not work :(
     
@@ -56,167 +132,5 @@ Because:
     [ERROR] For more information about the errors and possible solutions, please read the following articles:
     [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
     
-    
-    => Should I continue spending more time on this?
-    => ... or rather invest that amount of time in AWS Lambda, knative, ... ?
 
 ```
-
-## create function app (kotlin)
-
-### quick start
-
-```
-    $ make -C example-kotlin help    
-    $ make -C example-kotlin up
-    
-    $ curl http://localhost:7071/api/ping
-    => response: 200 - Hello from ping! 2019-02-17T08:53:45.683Z
-    
-    Finally, it works :)
-    took me just 1 weekend to make a simple "hello world" work ;)
-    
-    $ curl -v POST http://localhost:7071/api/run?name=123
-    ==> response: 200 -  Hello, 123
-```
-
-### status
-
-https://github.com/Azure/azure-functions-host/blob/dev/sample/Java/HttpTrigger/function.json
-
-```
-
-    still trial and error with azure docs.
-    
-    What files (*.jar, *.json) have to go where? 
-    How hard can it be to add this to docs? ... on 1st place ?
-    
-    
-    DIST folder structure
-    
-    build/faas:
-    - function.jar
-    - host.json
-    - local.settings.json
-    - swagger.yaml
-    - func001/function.json
-    - func002/function.json
-    
-    to serve that you need to ...
-    $ cd build/faas && func start
-    
-
-    $ make -C example-kotlin help    
-    $ make -C example-kotlin build       
-    $ make -C example-kotlin start
-    $ curl -v http://localhost:7071/api/kotlinping
-
-    -> returns 500 (when build with "com.microsoft.azure:azure-functions-java-core:1.0.0-beta-2")    
-    -> returns 404 (when build with "com.microsoft.azure:azure-functions-java-core:1.0.0-beta-3")
-        --> "NOT FOUND" ? for an internal server error?
-
-    
-    
-    A cause ...
-   
-    
-    [02/16/2019 08:35:50] Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
-    [02/16/2019 08:35:50] Result: Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
-    [02/16/2019 08:35:50] Exception: Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
-    [02/16/2019 08:35:50] Stack: java.lang.IllegalArgumentException: Parameter specified as non-null is null: method azure.tika.FunctionKt.kotlinPing, parameter context
-    [02/16/2019 08:35:50] 	at azure.tika.FunctionKt.kotlinPing(Function.kt)
-    
-    
-    
-    Findings ...
-    
-    the fat jar:
-    - you don't need to bundle your resources/functions/**.json into fat jar
-    - the json files need to be provided in the azure-dist folder, e.g.:
-    
-    build/faas:
-    - function.jar
-    - host.json
-    - local.settings.json
-    - swagger.yaml
-    - func001/function.json
-    - func002/function.json
-    
-    a function:
-    - must have a definition {{func-name}}/function.json
-    - must be whitelisted in host.json
-    
-    the annotations, e.g. @FunctionName("pingxxx") ...
-    - have no meaning in runtime ? 
-    - just used in compile-time by the maven-plugin to auto-magically generate functions/{{func-name}}/function.json ???
-
-```
-
-### side note: run func local (jvm)
-
-- this entire thing is weird and feels pre-alpha
-
-- issue: CTRL+C
-```
-      Stopping host...
-[02/17/2019 09:31:05] Stopping JobHost
-[02/17/2019 09:31:05] Job host stopped
-info: Host.General[0]
-      Host shutdown completed.
-[02/17/2019 09:31:05] Language Worker Process exited.
-[02/17/2019 09:31:05] /Users/sebastian.schmidt/.sdkman/candidates/java/current/bin/java exited with code 137
-[02/17/2019 09:31:05]  .
-[02/17/2019 09:31:05] Language Worker Process exited.
-[02/17/2019 09:31:05] Worker process is not attached. . Microsoft.Azure.WebJobs.Script: Cannot access a disposed object.
-[02/17/2019 09:31:05] Object name: 'ScriptEventManager'.
-
-Unhandled Exception: System.ObjectDisposedException: Cannot access a disposed object.
-Object name: 'ScriptEventManager'.
-   at Microsoft.Azure.WebJobs.Script.Eventing.ScriptEventManager.ThrowIfDisposed() in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Eventing\ScriptEventManager.cs:line 34
-   at Microsoft.Azure.WebJobs.Script.Eventing.ScriptEventManager.Publish(ScriptEvent scriptEvent) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Eventing\ScriptEventManager.cs:line 16
-   at Microsoft.Azure.WebJobs.Script.Rpc.LanguageWorkerChannel.HandleWorkerError(Exception exc) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Rpc\LanguageWorkerChannel.cs:line 480
-   at Microsoft.Azure.WebJobs.Script.Rpc.LanguageWorkerChannel.OnProcessExited(Object sender, EventArgs e) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Rpc\LanguageWorkerChannel.cs:line 205
-   at Microsoft.Azure.WebJobs.Script.Rpc.LanguageWorkerChannel.<StartProcess>b__34_2(Object sender, EventArgs e) in C:\azure-webjobs-sdk-script\src\WebJobs.Script\Rpc\LanguageWorkerChannel.cs:line 154
-   at System.Diagnostics.Process.OnExited()
-   at System.Diagnostics.Process.RaiseOnExited()
-   at System.Diagnostics.Process.CompletionCallback(Object waitHandleContext, Boolean wasSignaled)
-   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw() 
-
-```
-
-- issue: thread-safety?
-```
-
-sometimes my function gets an instance of ExecutionContextDataSource passed in as argument
-
-result:
-Hello from echo at 2019-02-17T09:29:02.981Z.  req=com.microsoft.azure.functions.worker.binding.ExecutionContextDataSource@38ab9bd3
-
-reproduce?
-
-- create fun(req:Any?):String
-- binding: name="req"
--> curl this func
-
--> curl another func ... now this func gets ExecutionContextDataSource as well
-
-```
-
-- issue: no ExecutionContext
-```
-Did not manage to access the ExecutionContext in function (NPE !)
-
-```
-
-- issue: no request query params
-```
-Did not manage to access query params in function (NPE !)
-Lack of docs? Or is it broken at all?
-
-```
-
-
-
-
