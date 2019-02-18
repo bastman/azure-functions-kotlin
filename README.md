@@ -1,7 +1,8 @@
 # azure-functions-kotlin
 experimental
 
-heavily expired by Duncan Dickinson: https://github.com/dedickinson/azure-function-tika
+- heavily expired by Duncan Dickinson: https://github.com/dedickinson/azure-function-tika
+- contains working example to run Apache Tika in azure functions
 
 ## Prepare OS X
 
