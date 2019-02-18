@@ -1,6 +1,8 @@
 # azure-functions-kotlin
 experimental
 
+heavily expired by: https://github.com/dedickinson/azure-function-tika
+
 ## create function app (node.js)
 
 Why node.js ? 
