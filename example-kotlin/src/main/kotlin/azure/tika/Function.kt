@@ -7,6 +7,14 @@ import com.microsoft.azure.functions.annotation.HttpTrigger
 import java.time.Instant
 import java.util.*
 
+fun ping(): String = "Hello from ping at ${now()} ."
+fun ping2(context: ExecutionContext): String {
+    context.logger.info { "${context.functionName} ${context.invocationId} - triggered by HttpTrigger. " }
+    return """
+        Hello from ${context.functionName} at ${now()}
+    """.trimIndent()
+}
+
 fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext): HttpResponseMessage {
     context.logger.info("${context.functionName} ${context.invocationId} - triggered by HttpTrigger. ")
     val azureWebJobsStorage: String = System.getenv("AzureWebJobsStorage")
@@ -43,13 +51,8 @@ fun foo(
     return "foo() req=$req" // null, awesome ;)
 }
 
-fun ping(): String = "Hello from ping at ${now()} ."
-fun ping2(context: ExecutionContext): String {
-    context.logger.info {
-        "=====> handle api call ping2 ... fn=${context.functionName} invocationId=${context.invocationId}"
-    }
-    return "Hello from ping2 at ${now()} . context=$context"
-}
+
+
 
 
 fun echo(req: Any?): String = "Hello from echo at ${now()}.  req=$req."
