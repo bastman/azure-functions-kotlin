@@ -44,6 +44,11 @@ Because:
     
     $ curl -v POST http://localhost:7071/api/run?name=123
     ==> response: 200 -  Hello, 123
+    
+    more example requests ...
+    
+    $ curl -v POST http://localhost:7071/api/echo2?name=123 -d ""{\"foo\":\"bar\"}""
+    
 ```
 
 ### the trick

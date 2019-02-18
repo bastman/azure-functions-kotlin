@@ -1,9 +1,10 @@
 package azure.tika
 
 
-import com.microsoft.azure.functions.*
-import com.microsoft.azure.functions.annotation.AuthorizationLevel
-import com.microsoft.azure.functions.annotation.HttpTrigger
+import com.microsoft.azure.functions.ExecutionContext
+import com.microsoft.azure.functions.HttpRequestMessage
+import com.microsoft.azure.functions.HttpResponseMessage
+import com.microsoft.azure.functions.HttpStatus
 import java.time.Instant
 import java.util.*
 
@@ -16,7 +17,19 @@ fun ping2(context: ExecutionContext): String {
     """.trimIndent()
 }
 
-
+fun echo(context: Any?): String = "Hello from echo at ${now()}.  context=$context."
+fun echo2(context: Any?, req: HttpRequestMessage<String?>): String {
+    val isExecutionContext = context is ExecutionContext
+    return """
+        Hello from echo2 at ${now()}.
+        context=$context - isExecutionContext=$isExecutionContext
+        req.method = ${req.httpMethod}
+        req.uri = ${req.uri}
+        req.body = ${req.body}
+        req.queryParameters = ${req.queryParameters}
+        req.headers = ${req.headers}
+        """
+}
 
 fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext): HttpResponseMessage {
     context.logger.info("${context.functionName} ${context.invocationId} - triggered by HttpTrigger. ")
@@ -44,25 +57,6 @@ fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext
                     """.trimIndent()
             )
             .build()
-}
-
-
-
-
-
-
-
-
-fun echo(req: Any?): String = "Hello from echo at ${now()}.  req=$req."
-fun echo2(req: Any?, name: Any?): String {
-
-    val isExecutionContext = req is ExecutionContext
-    return """
-        Hello from echo2 at ${now()}.
-        req=$req.  req.isExecutionContext=$isExecutionContext
-        name=$name
-
-        """
 }
 
 
