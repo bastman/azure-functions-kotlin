@@ -34,14 +34,16 @@ clean:
 
 ## build
 build: clean
+	-cp $(FAAS_SOURCE_DIR)/default.settings.json $(FAAS_SOURCE_DIR)/local.settings.json
 	$(GRADLEW) shadowJar
 	mkdir -p $(FAAS_DIST_DIR)
 	cp -rf $(FAAS_SOURCE_DIR)/** $(FAAS_DIST_DIR)/
 	cp $(JAR_SOURCE_LOCATION) $(JAR_SINK_LOCATION)
+	-cp $(FAAS_SOURCE_DIR)/local.settings.json $(FAAS_DIST_DIR)/
 	ls -la $(FAAS_DIST_DIR)
 ## start
 start:
-	-cp default.settings.json $(FAAS_DIST_DIR)/local.settings.json
+	-cp $(FAAS_SOURCE_DIR)/default.settings.json $(FAAS_DIST_DIR)/local.settings.json
 	cd $(FAAS_DIST_DIR) && func host start --port 7071
 
 ## up
