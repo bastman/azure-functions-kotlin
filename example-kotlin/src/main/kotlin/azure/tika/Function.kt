@@ -7,27 +7,32 @@ import com.microsoft.azure.functions.annotation.HttpTrigger
 import java.time.Instant
 import java.util.*
 
-fun run(
-        request: HttpRequestMessage<Optional<String>>,
-        context: ExecutionContext
-): HttpResponseMessage {
-
-    //return "RUN."
-
-    context.logger.info("Java HTTP trigger processed a request.")
+fun run(request: HttpRequestMessage<Optional<String>>, context: ExecutionContext): HttpResponseMessage {
+    context.logger.info("${context.functionName} ${context.invocationId} - triggered by HttpTrigger. ")
+    val azureWebJobsStorage: String = System.getenv("AzureWebJobsStorage")
+            ?: return request
+                    .createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("AzureWebJobsStorage is empty")
+                    .build()
 
     // Parse query parameter
     val query = request.queryParameters["name"]
-    val name = request.body.orElse(query)
-    val readEnv = System.getenv("AzureWebJobsStorage")
+    val name: String = request.body.orElse(query)
+            ?: return request
+                    .createResponseBuilder(HttpStatus.BAD_REQUEST)
+                    .body("Please pass a name on the query string or in the request body")
+                    .build()
 
-    if (name == null) {
-        return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a name on the query string or in the request body").build()
-    }
-    return if (readEnv == null) {
-        request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("AzureWebJobsStorage is empty").build()
-    } else request.createResponseBuilder(HttpStatus.OK).body("Hello, $name").build()
-
+    return request.createResponseBuilder(HttpStatus.OK)
+            .body(
+                    """
+                        Hello, $name .
+                        - func: [${context.functionName} ${context.invocationId}]
+                        - azureWebJobsStorage: $azureWebJobsStorage
+                        - now: ${Instant.now()}
+                    """.trimIndent()
+            )
+            .build()
 }
 
 
