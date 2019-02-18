@@ -49,6 +49,14 @@ Because:
     $ curl -v POST http://localhost:7071/api/run?name=123 -d ""{\"foo\":\"bar\"}""
     $ curl -v POST http://localhost:7071/api/echo2?name=123 -d ""{\"foo\":\"bar\"}""
     
+    $ curl -X POST http://localhost:7071/api/kotlintika \
+          -H 'accept:n' \
+          -H 'cache-control: no-cache'   \
+          -H 'content-type: application/octet-stream' \
+          --data-binary @example-kotlin/src/test/resources/TikaTestDocument.pdf
+    
+    => Connection id "0HLKLEKNCQMJE" bad request data: "Unexpected end of request content."
+    
 ```
 
 ### the trick
