@@ -64,7 +64,7 @@ Azure documentation lacks some essentials.
 
 Here they are ...
 
-1. use the "right" lib from maven central
+1 - use the "right" lib from maven central
 
 ```
     compile("com.microsoft.azure.functions:azure-functions-java-library:1.2.2")
@@ -76,13 +76,13 @@ Here they are ...
 
  ```
 
-2. create a fat jar
+2 - create a fat jar
  
 ```
     $ gradlew shadowJar
 ``` 
 
-3. create a distribution (e.g.: build/faas)
+3 - create a distribution (e.g.: build/faas)
 
     distribution folder structure
     
@@ -96,7 +96,7 @@ Here they are ...
     
     Note: your functions need to be whitelisted in host.json !
 
-4. start a function app from distribution folder
+4 - start a function app from distribution folder
 
 ```
     $ cd build/faas && func start
