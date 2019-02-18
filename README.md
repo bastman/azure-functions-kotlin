@@ -137,6 +137,7 @@ Here they are ...
     - func002/function.json
     
     Note: your functions need to be whitelisted in host.json !
+    Note: in function.json, each binding needs an attribute "name". (value for attribute "name" can be anything?)
 
 4 - start a function app from distribution folder
 
